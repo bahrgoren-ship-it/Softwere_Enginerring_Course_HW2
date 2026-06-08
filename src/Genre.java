@@ -1,8 +1,8 @@
 public enum Genre {
-    Action,
-    Science,
+    ACTION,
+    SCIENCE_FICTION,
     Fiction,
-    Comedy,
-    Drama,
-    Horror
+    COMEDY,
+    DRAMA,
+    HORROR
 }
