@@ -3,7 +3,7 @@ public class Director {
 
     String name;
     Movie[] moviesDirected = new Movie[Main.MAX_NUMBER_OF_MOVIES];
-    int moviesDirected = 0;
+    int numberOfMoviesDirected = 0;
 
     Director(String directorName){
         this.name = directorName;
@@ -13,4 +13,22 @@ public class Director {
         return this.name.equals(otherDirector.name);
     }
 
+    void addMovie(Movie movie){
+
+    }
+
+    static Director getDirector(String directorName) {
+
+        Director existingDirector = RentalSystem.directorExists(directorName);
+
+        if (existingDirector != null) {
+            return existingDirector;
+        }
+
+        return new Director(directorName);
+    }
+
+    String show(){
+        return this.name;
+    }
 }
