@@ -22,7 +22,7 @@ public class Movie {
     public void showMovie() {
         System.out.print("Title: " + this.movieName + ", Genre: " + this.genre);
         System.out.print(", Year: " + this.releaseYear + ", director: ");
-        this.director.showDirector();
+        this.director.show();
         System.out.println(".");
     }
 
