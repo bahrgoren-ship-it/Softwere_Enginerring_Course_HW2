@@ -1,5 +1,4 @@
 public class Main {
-    public static final int MAX_NUMBER_OF_MOVIES=30;
 
     public static void main(String[] args) {
         test1_MaxRentals();
