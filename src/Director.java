@@ -1,34 +1,47 @@
+/**
+* Holds the name of each director, biography and basic methods.
+*/
+
 public class Director {
-    public static final int directorNotFound = -1;
 
-    String name;
-    Movie[] moviesDirected = new Movie[Main.MAX_NUMBER_OF_MOVIES];
-    int numberOfMoviesDirected = 0;
+    /** Name of the director. */
+    private String name;
 
-    Director(String directorName){
+    /** Biography of the director. */
+    private String biography;
+
+    /** Constructs a new Director only with a name.
+     * @param directorName the name of the director
+     */
+    public Director(String directorName){
         this.name = directorName;
     }
 
+    /**
+     * Constructs a new Director with a name and biography.
+     * @param directorName the name of the director
+     * @param directorBiography the biography of the director
+     */
+    public Director(String directorName, String directorBiography){
+        this.name = directorName;
+        this.biography = directorBiography;
+    }
+
+    /**
+     * Equals for directors - only compares names.
+     * @param otherDirector the other director to compare against
+     * @return true if both directors have the same name, false otherwise
+     */
     public boolean equals(Director otherDirector) {
+        if(otherDirector == null) return false;
         return this.name.equals(otherDirector.name);
     }
 
-    void addMovie(Movie movie){
-
-    }
-
-    static Director getDirector(String directorName) {
-
-        Director existingDirector = RentalSystem.directorExists(directorName);
-
-        if (existingDirector != null) {
-            return existingDirector;
-        }
-
-        return new Director(directorName);
-    }
-
-    String show(){
+    /**
+     * Gives the director's name.
+     * @return the name of the director
+     */
+    public String getName(){
         return this.name;
     }
 }
