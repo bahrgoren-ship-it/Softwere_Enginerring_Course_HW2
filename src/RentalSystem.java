@@ -86,6 +86,73 @@ public class RentalSystem {
         movieIndex++;
     }
 
+    /**
+     * Removes movie from the system.
+     *
+     * @param movieName name of the movie we wish to remove.
+     * @param releaseYear of the movie.
+     * @param directorName of the movie.
+     */
+    public void removeMovie(String movieName, int releaseYear,String directorName){
+
+        // Finds the director of the movie as a Director object.
+        Director director = null;
+        int targetDirectorIndex;
+        for(targetDirectorIndex = 0; targetDirectorIndex < directorIndex; targetDirectorIndex++){
+            if((directorList[targetDirectorIndex].getName()).equals(directorName)){
+                director = directorList[targetDirectorIndex];
+                break;
+            }
+        }
+
+        if(director == null){
+            System.out.println("No such movie exists.");
+            return;
+        }
+
+        // Finds the movie to remove in movieList.
+        Movie targetMovie = new Movie(movieName, null, releaseYear, director);
+        boolean movieFound = false;
+        int targetMovieIndex;
+        for(targetMovieIndex = 0; targetMovieIndex < movieIndex; targetMovieIndex++){
+            if(movieList[targetMovieIndex].equals(targetMovie)){
+                targetMovie = movieList[targetMovieIndex];
+                movieFound = true;
+                break;
+            }
+        }
+
+        if(!movieFound){
+            System.out.println("No such movie exists.");
+            return;
+        }
+
+        if(targetMovie.getRentCounter() > 0){
+            System.out.println("Cannot remove a rented movie.");
+            return;
+        }
+
+            // Remove movie from movieList.
+            movieList[targetMovieIndex] = movieList[movieIndex - 1];
+            movieList[movieIndex - 1] = null;
+            movieIndex--;
+
+            // Removes director if he has no movies to his name in the system.
+            boolean directorStillHasMovies = false;
+            for(int i = 0; i < movieIndex; i++){
+                if((movieList[i].getDirector()).equals(director)){
+                    directorStillHasMovies = true;
+                    break;
+                }
+            }
+            if(!directorStillHasMovies){
+                directorList[targetDirectorIndex] = directorList[directorIndex - 1];
+                directorList[directorIndex - 1] = null;
+                directorIndex--;
+            }
+
+        }
+
     /** Displays both rented and unrented movies in the system*/
     public void printMovies(){
         boolean isRentedEmpty=true;
@@ -133,7 +200,7 @@ public class RentalSystem {
             return;
         }
 
-        Movie movieToRent=new Movie(movieName,releaseYear,directorToRent);
+        Movie movieToRent=new Movie(movieName, null, releaseYear ,directorToRent);
         boolean movieExists=false;
         for(int i=0;i<movieIndex;i++){
             if(movieToRent.equals(movieList[i])){
@@ -163,8 +230,10 @@ public class RentalSystem {
             customerToRent=new Customer(customerName,customerID);
         }
         if(customerToRent.rentMovie(movieToRent)){
-            activeCustomers[customerIndex]=customerToRent;
-            customerIndex++;
+            if(isNewCustomer) {
+                activeCustomers[customerIndex]=customerToRent;
+                customerIndex++;
+            }
         }
     }
 }
