@@ -120,7 +120,7 @@ public class RentalSystem {
      * @param releaseYear the release year of the movie.
      * @param directorName the director's name.
      */
-    public void rentMovie(String customerName, int customerID,String movieName,int releaseYear,String directorName){
+    public void rentMovie(String customerName, String customerID,String movieName,int releaseYear,String directorName){
         Director directorToRent=null;
         for(int i=0;i<directorIndex;i++){
             if(directorName.equals(directorList[i].getName())){// instance already exists
@@ -140,7 +140,7 @@ public class RentalSystem {
         boolean isNewCustomer=true;
         Customer customerToRent=null;
         for(int i=0;i<customerIndex;i++){
-            if(customerID==activeCustomers[i].getId()){
+            if(customerID.equals(activeCustomers[i].getId())){
                 isNewCustomer=false;
                 customerToRent=activeCustomers[i];
             }

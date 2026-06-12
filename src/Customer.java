@@ -13,7 +13,7 @@ public class Customer {
     private String name;
 
     /** Customer id. */
-    private int id;
+    private String id;
 
     /** Movies the customer rented. */
     private Movie[] rentedMovies = new Movie[MAX_MOVIES_PER_CUSTOMER];
@@ -27,7 +27,7 @@ public class Customer {
      * @param newCustomerName name of new customer
      * @param newCustomerId id of new customer
      */
-    public Customer(String newCustomerName, int newCustomerId){
+    public Customer(String newCustomerName, String newCustomerId){
         this.name = newCustomerName;
         this.id = newCustomerId;
     }
@@ -101,7 +101,7 @@ public class Customer {
      *
      * @return the customer's id
      */
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
@@ -113,6 +113,6 @@ public class Customer {
      */
     public boolean equals(Customer otherCustomer) {
         if(otherCustomer == null) return false;
-        return this.id == otherCustomer.id;
+        return this.id.equals(otherCustomer.id);
     }
 }
