@@ -1,111 +1,127 @@
 
 public class RentalSystem {
 
-    /** The maximum number of movies the system can handle.*/
+    /**
+     * The maximum number of movies the system can handle.
+     */
     public static final int MAX_NUMBER_OF_MOVIES = 30;
 
 
-    /** The movie list.*/
+    /**
+     * The movie list.
+     */
     private Movie[] movieList;
 
-    /**The index at which to write to movieList.*/
-    private int movieIndex=0;
+    /**
+     * The index at which to write to movieList.
+     */
+    private int movieIndex = 0;
 
-    /** The active cutomer list*/
-    private  Customer[] activeCustomers;
+    /**
+     * The active cutomer list
+     */
+    private Customer[] activeCustomers;
 
-    /**The index at which to write to activeCustomers*/
-    private int customerIndex=0;
+    /**
+     * The index at which to write to activeCustomers
+     */
+    private int customerIndex = 0;
 
-    /** The maximum number of customers the system can handle.*/
+    /**
+     * The maximum number of customers the system can handle.
+     */
     public static final int MAX_NUMBER_OF_CUSTOMERS = 30;
 
-    /** The directors that have movies in the system and thus instancized*/
+    /**
+     * The directors that have movies in the system and thus instancized
+     */
     private Director[] directorList;
 
-    /** The index at which to write to directorList*/
-    private int directorIndex=0;
+    /**
+     * The index at which to write to directorList
+     */
+    private int directorIndex = 0;
 
 
     /**
      * Constructs a new Rental System.
      */
-    public RentalSystem(){
-        this.movieList= new Movie[MAX_NUMBER_OF_MOVIES];
-        for(int i=0;i<MAX_NUMBER_OF_MOVIES;i++){//init movie list
-            this.movieList[i]=null;
+    public RentalSystem() {
+        this.movieList = new Movie[MAX_NUMBER_OF_MOVIES];
+        for (int i = 0; i < MAX_NUMBER_OF_MOVIES; i++) {//init movie list
+            this.movieList[i] = null;
         }
-        this.activeCustomers= new Customer[MAX_NUMBER_OF_CUSTOMERS];
-        for(int i=0;i<MAX_NUMBER_OF_CUSTOMERS;i++){//init active customer list
-            this.activeCustomers[i]=null;
+        this.activeCustomers = new Customer[MAX_NUMBER_OF_CUSTOMERS];
+        for (int i = 0; i < MAX_NUMBER_OF_CUSTOMERS; i++) {//init active customer list
+            this.activeCustomers[i] = null;
         }
-        this.directorList=new Director[MAX_NUMBER_OF_MOVIES];// cannot be more directors than movies
-        for(int i=0;i<MAX_NUMBER_OF_MOVIES;i++){
-            this.directorList[i]=null;
+        this.directorList = new Director[MAX_NUMBER_OF_MOVIES];// cannot be more directors than movies
+        for (int i = 0; i < MAX_NUMBER_OF_MOVIES; i++) {
+            this.directorList[i] = null;
         }
     }
 
     /**
      *
-     * @param movieName name of the movie we wish to add.
-     * @param genre of the movie.
-     * @param releaseYear of the movie.
+     * @param movieName    name of the movie we wish to add.
+     * @param genre        of the movie.
+     * @param releaseYear  of the movie.
      * @param directorName of the movie.
-     * @param biography of the director.
-     * Adds movie to system or displays that movie cannot be added.
+     * @param biography    of the director.
+     *                     Adds movie to system or displays that movie cannot be added.
      */
-    public void addMovie(String movieName,Genre genre, int releaseYear,String directorName,String biography){
-        if(this.movieIndex>=MAX_NUMBER_OF_MOVIES){
+    public void addMovie(String movieName, Genre genre, int releaseYear, String directorName, String biography) {
+        if (this.movieIndex >= MAX_NUMBER_OF_MOVIES) {
             System.out.println("System is full. Cannot add more movies.");
             return;
         }
 
-        boolean isNewDirector=true;
-        Director directorToAdd=null;
-        for(int i=0;i<directorIndex;i++){
-            if(directorName.equals(directorList[i].getName())){// instance already exists
-                isNewDirector=false;
-                directorToAdd=directorList[i];
+        boolean isNewDirector = true;
+        Director directorToAdd = null;
+        for (int i = 0; i < directorIndex; i++) {
+            if (directorName.equals(directorList[i].getName())) {// instance already exists
+                isNewDirector = false;
+                directorToAdd = directorList[i];
                 break;
             }
         }
-        if(isNewDirector){
-            directorToAdd=new Director(directorName,biography);
+        if (isNewDirector) {
+            directorToAdd = new Director(directorName, biography);
             // directorIndex is less or equal to movie index which is less than max so were in bounds.
-            directorList[directorIndex]=directorToAdd;
+            directorList[directorIndex] = directorToAdd;
             directorIndex++;
         }
-        Movie movieToAdd=new Movie(movieName,genre,releaseYear,directorToAdd);
-        for(int i=0;i<movieIndex;i++){//not first movie so we must check for duplicates
-            if(movieToAdd.equals(movieList[i])){//movie already exists
+        Movie movieToAdd = new Movie(movieName, genre, releaseYear, directorToAdd);
+        for (int i = 0; i < movieIndex; i++) {//not first movie so we must check for duplicates
+            if (movieToAdd.equals(movieList[i])) {//movie already exists
                 System.out.println("Movie is already in the system.");
                 return;
             }
         }
-        movieList[movieIndex]=movieToAdd;
+        movieList[movieIndex] = movieToAdd;
         movieIndex++;
     }
 
     /**
      * Removes movie from the system.
      *
-     * @param movieName name of the movie we wish to remove.
-     * @param releaseYear of the movie.
+     * @param movieName    name of the movie we wish to remove.
+     * @param releaseYear  of the movie.
      * @param directorName of the movie.
      */
-    public void removeMovie(String movieName, int releaseYear,String directorName){
+    public void removeMovie(String movieName, int releaseYear, String directorName) {
 
         // Finds the director of the movie as a Director object.
         Director director = null;
         int targetDirectorIndex;
-        for(targetDirectorIndex = 0; targetDirectorIndex < directorIndex; targetDirectorIndex++){
-            if((directorList[targetDirectorIndex].getName()).equals(directorName)){
+        for (targetDirectorIndex = 0; targetDirectorIndex < directorIndex; targetDirectorIndex++) {
+            if ((directorList[targetDirectorIndex].getName()).equals(directorName)) {
                 director = directorList[targetDirectorIndex];
                 break;
             }
         }
 
-        if(director == null){
+        if (director == null) {
             System.out.println("No such movie exists.");
             return;
         }
@@ -114,124 +130,127 @@ public class RentalSystem {
         Movie targetMovie = new Movie(movieName, null, releaseYear, director);
         boolean movieFound = false;
         int targetMovieIndex;
-        for(targetMovieIndex = 0; targetMovieIndex < movieIndex; targetMovieIndex++){
-            if(movieList[targetMovieIndex].equals(targetMovie)){
+        for (targetMovieIndex = 0; targetMovieIndex < movieIndex; targetMovieIndex++) {
+            if (movieList[targetMovieIndex].equals(targetMovie)) {
                 targetMovie = movieList[targetMovieIndex];
                 movieFound = true;
                 break;
             }
         }
 
-        if(!movieFound){
+        if (!movieFound) {
             System.out.println("No such movie exists.");
             return;
         }
 
-        if(targetMovie.getRentCounter() > 0){
+        if (targetMovie.getRentCounter() > 0) {
             System.out.println("Cannot remove a rented movie.");
             return;
         }
 
-            // Remove movie from movieList.
-            movieList[targetMovieIndex] = movieList[movieIndex - 1];
-            movieList[movieIndex - 1] = null;
-            movieIndex--;
+        // Remove movie from movieList.
+        movieList[targetMovieIndex] = movieList[movieIndex - 1];
+        movieList[movieIndex - 1] = null;
+        movieIndex--;
 
-            // Removes director if he has no movies to his name in the system.
-            boolean directorStillHasMovies = false;
-            for(int i = 0; i < movieIndex; i++){
-                if((movieList[i].getDirector()).equals(director)){
-                    directorStillHasMovies = true;
-                    break;
-                }
+        // Removes director if he has no movies to his name in the system.
+        boolean directorStillHasMovies = false;
+        for (int i = 0; i < movieIndex; i++) {
+            if ((movieList[i].getDirector()).equals(director)) {
+                directorStillHasMovies = true;
+                break;
             }
-            if(!directorStillHasMovies){
-                directorList[targetDirectorIndex] = directorList[directorIndex - 1];
-                directorList[directorIndex - 1] = null;
-                directorIndex--;
-            }
-
+        }
+        if (!directorStillHasMovies) {
+            directorList[targetDirectorIndex] = directorList[directorIndex - 1];
+            directorList[directorIndex - 1] = null;
+            directorIndex--;
         }
 
-    /** Displays both rented and unrented movies in the system*/
-    public void printMovies(){
-        boolean isRentedEmpty=true;
-        boolean isUnrentedEmpty=true;
+    }
+
+    /**
+     * Displays both rented and unrented movies in the system
+     */
+    public void printMovies() {
+        boolean isRentedEmpty = true;
+        boolean isUnrentedEmpty = true;
         System.out.println("Rented movies:");
-        for(int i=0;i<movieIndex;i++){
-            if(this.movieList[i].getRentCounter()>0){
+        for (int i = 0; i < movieIndex; i++) {
+            if (this.movieList[i].getRentCounter() > 0) {
                 movieList[i].showMovie();
-                isRentedEmpty=false;
+                isRentedEmpty = false;
             }
         }
-        if(isRentedEmpty){
+        if (isRentedEmpty) {
             System.out.println("No Rented movies.");
         }
         System.out.println("Unrented movies:");
-        for(int i=0;i<movieIndex;i++){
-            if(this.movieList[i].getRentCounter()==0){
+        for (int i = 0; i < movieIndex; i++) {
+            if (this.movieList[i].getRentCounter() == 0) {
                 movieList[i].showMovie();
-                isUnrentedEmpty=false;
+                isUnrentedEmpty = false;
             }
         }
-        if(isUnrentedEmpty){
+        if (isUnrentedEmpty) {
             System.out.println("No Unrented movies.");
         }
     }
 
     /**
      * Rents a movie for the customer or Displays that there's been an error.
+     *
      * @param customerName the customer's name.
-     * @param customerID the customer's ID.
-     * @param movieName the movie's name
-     * @param releaseYear the release year of the movie.
+     * @param customerID   the customer's ID.
+     * @param movieName    the movie's name
+     * @param releaseYear  the release year of the movie.
      * @param directorName the director's name.
      */
-    public void rentMovie(String customerName, String customerID,String movieName,int releaseYear,String directorName){
-        Director directorToRent=null;
-        for(int i=0;i<directorIndex;i++){
-            if(directorName.equals(directorList[i].getName())){// instance already exists
-                directorToRent=directorList[i];
+    public void rentMovie(String customerName, String customerID, String movieName, int releaseYear, String directorName) {
+        Director directorToRent = null;
+        for (int i = 0; i < directorIndex; i++) {
+            if (directorName.equals(directorList[i].getName())) {// instance already exists
+                directorToRent = directorList[i];
                 break;
             }
         }
-        if(directorToRent==null){// no director with given name
+        if (directorToRent == null) {// no director with given name
             System.out.println("No Such movie exists");
             return;
         }
 
-        Movie movieToRent=new Movie(movieName, null, releaseYear ,directorToRent);
-        boolean movieExists=false;
-        for(int i=0;i<movieIndex;i++){
-            if(movieToRent.equals(movieList[i])){
-                movieToRent=movieList[i];
-                movieExists=true;
+        Movie movieToRent = new Movie(movieName, null, releaseYear, directorToRent);
+        boolean movieExists = false;
+        for (int i = 0; i < movieIndex; i++) {
+            if (movieToRent.equals(movieList[i])) {
+                movieToRent = movieList[i];
+                movieExists = true;
             }
         }
-        if(!movieExists){
+        if (!movieExists) {
             System.out.println("No Such movie exists");
             return;
         }
 
-        boolean isNewCustomer=true;
-        Customer customerToRent=null;
-        for(int i=0;i<customerIndex;i++){
-            if(customerID.equals(activeCustomers[i].getId())){
-                isNewCustomer=false;
-                customerToRent=activeCustomers[i];
+        boolean isNewCustomer = true;
+        Customer customerToRent = null;
+        for (int i = 0; i < customerIndex; i++) {
+            if (customerID.equals(activeCustomers[i].getId())) {
+                isNewCustomer = false;
+                customerToRent = activeCustomers[i];
                 break;
             }
         }
-        if(isNewCustomer&&customerIndex>=MAX_NUMBER_OF_CUSTOMERS){
+        if (isNewCustomer && customerIndex >= MAX_NUMBER_OF_CUSTOMERS) {
             System.out.println("No room for new customers");
             return;
         }
-        if(isNewCustomer){
-            customerToRent=new Customer(customerName,customerID);
+        if (isNewCustomer) {
+            customerToRent = new Customer(customerName, customerID);
         }
-        if(customerToRent.rentMovie(movieToRent)){
-            if(isNewCustomer) {
-                activeCustomers[customerIndex]=customerToRent;
+        if (customerToRent.rentMovie(movieToRent)) {
+            if (isNewCustomer) {
+                activeCustomers[customerIndex] = customerToRent;
                 customerIndex++;
             }
         }
