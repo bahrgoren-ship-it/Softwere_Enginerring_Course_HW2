@@ -40,12 +40,13 @@ public class Customer {
     public boolean rentMovie(Movie movieToRent){
         if(movieToRent==null) return false;
         if( this.rentedMoviesNumber >= MAX_MOVIES_PER_CUSTOMER){
-            System.out.println("The customer has reached the limit.");
+            System.out.println("The customer has reached the limit");
             return false;
         }
         for(int i=0;i<rentedMoviesNumber;i++){
             if(rentedMovies[i].equals(movieToRent)){
-                System.out.println("The customer already has this movie.");
+                System.out.println("Customer already has this movie.");
+                return false;
             }
         }
         this.rentedMovies[this.rentedMoviesNumber] = movieToRent;

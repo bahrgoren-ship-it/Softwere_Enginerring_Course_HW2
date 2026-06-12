@@ -129,25 +129,8 @@ public class RentalSystem {
             }
         }
         if(directorToRent==null){// no director with given name
-            System.out.println("No such movie exists");
+            System.out.println("No Such movie exists");
             return;
-        }
-
-        if(customerIndex>=MAX_NUMBER_OF_CUSTOMERS){
-            System.out.println("No room for new customers.");
-        }
-
-        boolean isNewCustomer=true;
-        Customer customerToRent=null;
-        for(int i=0;i<customerIndex;i++){
-            if(customerID.equals(activeCustomers[i].getId())){
-                isNewCustomer=false;
-                customerToRent=activeCustomers[i];
-            }
-        }
-        if(isNewCustomer){
-            customerToRent=new Customer(customerName,customerID);
-            customerIndex++;
         }
 
         Movie movieToRent=new Movie(movieName,releaseYear,directorToRent);
@@ -159,9 +142,29 @@ public class RentalSystem {
             }
         }
         if(!movieExists){
-            System.out.println("No such movie exists");
+            System.out.println("No Such movie exists");
             return;
         }
-        customerToRent.rentMovie(movieToRent);
+
+        boolean isNewCustomer=true;
+        Customer customerToRent=null;
+        for(int i=0;i<customerIndex;i++){
+            if(customerID.equals(activeCustomers[i].getId())){
+                isNewCustomer=false;
+                customerToRent=activeCustomers[i];
+                break;
+            }
+        }
+        if(isNewCustomer&&customerIndex>=MAX_NUMBER_OF_CUSTOMERS){
+            System.out.println("No room for new customers");
+            return;
+        }
+        if(isNewCustomer){
+            customerToRent=new Customer(customerName,customerID);
+        }
+        if(customerToRent.rentMovie(movieToRent)){
+            activeCustomers[customerIndex]=customerToRent;
+            customerIndex++;
+        }
     }
 }
