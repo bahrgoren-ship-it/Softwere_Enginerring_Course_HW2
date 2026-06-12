@@ -26,6 +26,7 @@ public class RentalSystem {
     /** The index at which to write to directorList*/
     private int directorIndex=0;
 
+
     /**
      * Constructs a new Rental System.
      */
@@ -84,7 +85,30 @@ public class RentalSystem {
         movieList[movieIndex]=movieToAdd;
         movieIndex++;
     }
+
+    /** Displays both rented and unrented movies in the system*/
     public void printMovies(){
-        for(int i=0;i<)
+        boolean isRentedEmpty=true;
+        boolean isUnrentedEmpty=true;
+        System.out.println("Rented movies:");
+        for(int i=0;i<movieIndex;i++){
+            if(this.movieList[i].getRentCounter()>0){
+                movieList[i].showMovie();
+                isRentedEmpty=false;
+            }
+        }
+        if(isRentedEmpty){
+            System.out.println("No Rented movies.");
+        }
+        System.out.println("Unrented movies:");
+        for(int i=0;i<movieIndex;i++){
+            if(this.movieList[i].getRentCounter()==0){
+                movieList[i].showMovie();
+                isUnrentedEmpty=false;
+            }
+        }
+        if(isUnrentedEmpty){
+            System.out.println("No Unrented movies.");
+        }
     }
 }

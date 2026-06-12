@@ -40,8 +40,8 @@ public class Customer {
     public boolean rentMovie(Movie movieToRent){
         if(movieToRent == null || this.rentedMoviesNumber >= MAX_MOVIES_PER_CUSTOMER) return false;
         this.rentedMovies[this.rentedMoviesNumber] = movieToRent;
+        movieToRent.increaseRentCounter();
         rentedMoviesNumber++;
-        movieToRent.setRented();
         return true;
     }
 
@@ -70,6 +70,7 @@ public class Customer {
         if(movieToReturn == null || index == MOVIE_NOT_RENTED_BY_CUSTOMER) return false;
 
         this.rentedMovies[index] = this.rentedMovies[rentedMoviesNumber - 1];
+        this.rentedMovies[index].decreaseRentCounter();
         rentedMovies[rentedMoviesNumber - 1] = null;
         rentedMoviesNumber--;
 

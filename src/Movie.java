@@ -5,7 +5,7 @@ public class Movie {
     private Genre genre;
     private int releaseYear;
     private Director director;
-    private boolean isRented=false;
+    private int rentCounter=0;
 
     /**
      * Constructor.
@@ -58,6 +58,15 @@ public class Movie {
         return this.movieName;
     }
 
+    public void increaseRentCounter(){
+        this.rentCounter++;
+    }
+    public void decreaseRentCounter(){
+        this.rentCounter--;
+    }
+    public int getRentCounter(){
+        return this.rentCounter;
+    }
     /**
      * Gets the movie's release year.
      *
@@ -65,16 +74,6 @@ public class Movie {
      */
     public int getReleaseYear() {
         return this.releaseYear;
-    }
-
-    /** Flags movie as rented*/
-    public void setRented(){
-        this.isRented=true;
-    }
-
-    /**Flags movies as not rented*/
-    public void removeRented(){
-        this.isRented=false;
     }
 
     /**
