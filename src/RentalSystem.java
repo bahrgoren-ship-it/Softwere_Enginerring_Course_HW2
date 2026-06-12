@@ -111,4 +111,57 @@ public class RentalSystem {
             System.out.println("No Unrented movies.");
         }
     }
+
+    /**
+     * Rents a movie for the customer or Displays that there's been an error.
+     * @param customerName the customer's name.
+     * @param customerID the customer's ID.
+     * @param movieName the movie's name
+     * @param releaseYear the release year of the movie.
+     * @param directorName the director's name.
+     */
+    public void rentMovie(String customerName, int customerID,String movieName,int releaseYear,String directorName){
+        Director directorToRent=null;
+        for(int i=0;i<directorIndex;i++){
+            if(directorName.equals(directorList[i].getName())){// instance already exists
+                directorToRent=directorList[i];
+                break;
+            }
+        }
+        if(directorToRent==null){// no director with given name
+            System.out.println("No such movie exists");
+            return;
+        }
+
+        if(customerIndex>=MAX_NUMBER_OF_CUSTOMERS){
+            System.out.println("No room for new customers.");
+        }
+
+        boolean isNewCustomer=true;
+        Customer customerToRent=null;
+        for(int i=0;i<customerIndex;i++){
+            if(customerID==activeCustomers[i].getId()){
+                isNewCustomer=false;
+                customerToRent=activeCustomers[i];
+            }
+        }
+        if(isNewCustomer){
+            customerToRent=new Customer(customerName,customerID);
+            customerIndex++;
+        }
+
+        Movie movieToRent=new Movie(movieName,releaseYear,directorToRent);
+        boolean movieExists=false;
+        for(int i=0;i<movieIndex;i++){
+            if(movieToRent.equals(movieList[i])){
+                movieToRent=movieList[i];
+                movieExists=true;
+            }
+        }
+        if(!movieExists){
+            System.out.println("No such movie exists");
+            return;
+        }
+        customerToRent.rentMovie(movieToRent);
+    }
 }

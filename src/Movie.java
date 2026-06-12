@@ -22,6 +22,17 @@ public class Movie {
         this.releaseYear = releaseYear;
         this.director = director;
     }
+    /**
+     * Constructor, creates movie without a genre.
+     *
+     * @param movieName the name of the movie
+     * @param releaseYear the release year of the movie
+     * @param director the director of the movie
+     */
+
+    public Movie(String movieName, int releaseYear, Director director) {
+        this(movieName,Genre.ACTION,releaseYear,director);
+    }
 
     /**
      * Displays movie information.
