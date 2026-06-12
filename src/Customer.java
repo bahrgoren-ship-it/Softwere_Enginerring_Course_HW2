@@ -41,6 +41,7 @@ public class Customer {
         if(movieToRent == null || this.rentedMoviesNumber >= MAX_MOVIES_PER_CUSTOMER) return false;
         this.rentedMovies[this.rentedMoviesNumber] = movieToRent;
         rentedMoviesNumber++;
+        movieToRent.setRented();
         return true;
     }
 

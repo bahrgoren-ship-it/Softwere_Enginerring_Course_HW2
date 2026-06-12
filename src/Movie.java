@@ -5,6 +5,7 @@ public class Movie {
     private Genre genre;
     private int releaseYear;
     private Director director;
+    private boolean isRented=false;
 
     /**
      * Constructor.
@@ -64,6 +65,16 @@ public class Movie {
      */
     public int getReleaseYear() {
         return this.releaseYear;
+    }
+
+    /** Flags movie as rented*/
+    public void setRented(){
+        this.isRented=true;
+    }
+
+    /**Flags movies as not rented*/
+    public void removeRented(){
+        this.isRented=false;
     }
 
     /**

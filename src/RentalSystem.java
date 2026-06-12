@@ -84,5 +84,7 @@ public class RentalSystem {
         movieList[movieIndex]=movieToAdd;
         movieIndex++;
     }
-
+    public void printMovies(){
+        for(int i=0;i<)
+    }
 }
