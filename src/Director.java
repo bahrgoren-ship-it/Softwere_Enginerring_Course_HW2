@@ -39,7 +39,6 @@ public class Director {
         if(otherDirector == null) return false;
         return this.name.equals(otherDirector.name);
     }
-
     /**
      * Gives the director's name.
      *
