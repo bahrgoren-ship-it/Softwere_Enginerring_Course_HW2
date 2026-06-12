@@ -48,13 +48,15 @@ public class RentalSystem {
             System.out.println("System is full, Cannot add more movies.");
             return;
         }
-        if(this.movieIndex==0){//
+        if(this.movieIndex==0){// first movie
             Director directorToAdd= new Director(directorName, biography);
             Movie movieToAdd= new Movie(movieName,genre,releaseYear,directorToAdd);
             movieList[0]=movieToAdd;
             return;
         }
-        for(int i=0;i<movieIndex)
+        for(int i=0;i<movieIndex;i++){//not first movie so we must check for dups
+
+        }
 
     }
 
