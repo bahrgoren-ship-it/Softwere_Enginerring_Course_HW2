@@ -20,6 +20,12 @@ public class RentalSystem {
     /** The maximum number of customers the system can handle.*/
     public static final int MAX_NUMBER_OF_CUSTOMERS = 30;
 
+    /** The directors that have movies in the system and thus instancized*/
+    private Director[] directorList;
+
+    /** The index at which to write to directorList*/
+    private int directorIndex=0;
+
     /**
      * Constructs a new Rental System.
      */
@@ -31,6 +37,10 @@ public class RentalSystem {
         this.activeCustomers= new Customer[MAX_NUMBER_OF_CUSTOMERS];
         for(int i=0;i<MAX_NUMBER_OF_CUSTOMERS;i++){//init active customer list
             this.activeCustomers[i]=null;
+        }
+        this.directorList=new Director[MAX_NUMBER_OF_MOVIES];// cannot be more directors than movies
+        for(int i=0;i<MAX_NUMBER_OF_MOVIES;i++){
+            this.directorList[i]=null;
         }
     }
 
@@ -44,20 +54,35 @@ public class RentalSystem {
      * Adds movie to system or displays that movie cannot be added.
      */
     public void addMovie(String movieName,Genre genre, int releaseYear,String directorName,String biography){
-        if(this.movieIndex>=30){
-            System.out.println("System is full, Cannot add more movies.");
+        if(this.movieIndex>=MAX_NUMBER_OF_MOVIES){
+            System.out.println("System is full. Cannot add more movies.");
             return;
         }
-        if(this.movieIndex==0){// first movie
-            Director directorToAdd= new Director(directorName, biography);
-            Movie movieToAdd= new Movie(movieName,genre,releaseYear,directorToAdd);
-            movieList[0]=movieToAdd;
-            return;
-        }
-        for(int i=0;i<movieIndex;i++){//not first movie so we must check for dups
 
+        boolean isNewDirector=true;
+        Director directorToAdd=null;
+        for(int i=0;i<directorIndex;i++){
+            if(directorName.equals(directorList[i].getName())){// instance already exists
+                isNewDirector=false;
+                directorToAdd=directorList[i];
+                break;
+            }
         }
-
+        if(isNewDirector){
+            directorToAdd=new Director(directorName,biography);
+            // directorIndex is less or equal to movie index which is less than max so were in bounds.
+            directorList[directorIndex]=directorToAdd;
+            directorIndex++;
+        }
+        Movie movieToAdd=new Movie(movieName,genre,releaseYear,directorToAdd);
+        for(int i=0;i<movieIndex;i++){//not first movie so we must check for duplicates
+            if(movieToAdd.equals(movieList[i])){//movie already exists
+                System.out.println("Movie is already in the system.");
+                return;
+            }
+        }
+        movieList[movieIndex]=movieToAdd;
+        movieIndex++;
     }
 
 }
