@@ -5,15 +5,15 @@ public class Movie {
     private Genre genre;
     private int releaseYear;
     private Director director;
-    private int rentCounter=0;
+    private int rentCounter = 0;
 
     /**
      * Constructor.
      *
-     * @param movieName the name of the movie
-     * @param genre the genre of the movie
+     * @param movieName   the name of the movie
+     * @param genre       the genre of the movie
      * @param releaseYear the release year of the movie
-     * @param director the director of the movie
+     * @param director    the director of the movie
      */
 
     public Movie(String movieName, Genre genre, int releaseYear, Director director) {
@@ -22,16 +22,17 @@ public class Movie {
         this.releaseYear = releaseYear;
         this.director = director;
     }
+
     /**
      * Constructor, creates movie without a genre.
      *
-     * @param movieName the name of the movie
+     * @param movieName   the name of the movie
      * @param releaseYear the release year of the movie
-     * @param director the director of the movie
+     * @param director    the director of the movie
      */
 
     public Movie(String movieName, int releaseYear, Director director) {
-        this(movieName,Genre.ACTION,releaseYear,director);
+        this(movieName, Genre.ACTION, releaseYear, director);
     }
 
     /**
@@ -52,10 +53,10 @@ public class Movie {
      * @return true if same and false otherwise
      */
     public boolean equals(Movie movie) {
-        if(movie == null) return false;
+        if (movie == null) return false;
         if (this.movieName.equals(movie.movieName) && this.releaseYear == movie.releaseYear
-                && this.director.equals(movie.director)){
-                return true;
+                && this.director.equals(movie.director)) {
+            return true;
         }
         return false;
     }
@@ -69,15 +70,18 @@ public class Movie {
         return this.movieName;
     }
 
-    public void increaseRentCounter(){
+    public void increaseRentCounter() {
         this.rentCounter++;
     }
-    public void decreaseRentCounter(){
+
+    public void decreaseRentCounter() {
         this.rentCounter--;
     }
-    public int getRentCounter(){
+
+    public int getRentCounter() {
         return this.rentCounter;
     }
+
     /**
      * Gets the movie's release year.
      *
@@ -95,5 +99,4 @@ public class Movie {
     public Director getDirector() {
         return this.director;
     }
-
 }

@@ -18,7 +18,7 @@ public class RentalSystem {
     private int movieIndex = 0;
 
     /**
-     * The active cutomer list
+     * The active customer list
      */
     private Customer[] activeCustomers;
 
@@ -33,7 +33,7 @@ public class RentalSystem {
     public static final int MAX_NUMBER_OF_CUSTOMERS = 30;
 
     /**
-     * The directors that have movies in the system and thus instancized
+     * The directors that have movies in the system.
      */
     private Director[] directorList;
 
@@ -62,13 +62,13 @@ public class RentalSystem {
     }
 
     /**
+     *Adds movie to system or displays that movie cannot be added.
      *
      * @param movieName    name of the movie we wish to add.
      * @param genre        of the movie.
      * @param releaseYear  of the movie.
      * @param directorName of the movie.
      * @param biography    of the director.
-     *                     Adds movie to system or displays that movie cannot be added.
      */
     public void addMovie(String movieName, Genre genre, int releaseYear, String directorName, String biography) {
         if (this.movieIndex >= MAX_NUMBER_OF_MOVIES) {
@@ -170,7 +170,7 @@ public class RentalSystem {
     }
 
     /**
-     * Displays both rented and unrented movies in the system
+     * Displays both rented and unrented movies in the system.
      */
     public void printMovies() {
         boolean isRentedEmpty = true;
@@ -214,7 +214,7 @@ public class RentalSystem {
                 break;
             }
         }
-        if (directorToRent == null) {// no director with given name
+        if (directorToRent == null) {// No director with given name.
             System.out.println("No Such movie exists");
             return;
         }
@@ -255,4 +255,50 @@ public class RentalSystem {
             }
         }
     }
+
+    /**
+     * Returns a movie from a customer or Displays that there's been an error.
+     *
+     * @param customerID   the customer's ID.
+     * @param movieName    the movie's name
+     * @param releaseYear  the release year of the movie.
+     * @param directorName the director's name.
+     */
+    public void returnMovie(String customerID, String movieName, int releaseYear, String directorName) {
+        Director director = null;
+        for (int i = 0; i < directorIndex; i++) {
+            if (directorName.equals(directorList[i].getName())) {// instance already exists
+                director = directorList[i];
+                break;
+            }
+        }
+        if (director == null) {// No director with given name found.
+            System.out.println("Customer cannot return the movie.");
+            return;
+        }
+
+        int targetCustomerIndex = -1;
+        for(int i = 0; i < customerIndex; i++){
+            if(activeCustomers[i].getId().equals(customerID)){
+                targetCustomerIndex = i;
+                break;
+            }
+        }
+        if (targetCustomerIndex == -1) {// No customer with given ID found.
+            System.out.println("Customer cannot return the movie.");
+            return;
+        }
+
+        Customer targetCustomer = activeCustomers[targetCustomerIndex];
+
+        Movie targetMovie = targetCustomer.getRentedMovie(movieName, releaseYear, director);
+        if(targetMovie == null){
+            System.out.println("Customer cannot return the movie.");
+            return;
+        }
+
+        targetCustomer.returnMovie(targetMovie);
+
+    }
+
 }
