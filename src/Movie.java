@@ -70,14 +70,17 @@ public class Movie {
         return this.movieName;
     }
 
+    /** Increases the rent counter by one. */
     public void increaseRentCounter() {
         this.rentCounter++;
     }
 
+    /** Decreases the rent counter by one. */
     public void decreaseRentCounter() {
         this.rentCounter--;
     }
 
+    /** Returns the current rent counter. */
     public int getRentCounter() {
         return this.rentCounter;
     }

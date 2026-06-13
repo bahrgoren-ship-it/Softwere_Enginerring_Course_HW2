@@ -144,7 +144,7 @@ public class RentalSystem {
         }
 
         if (targetMovie.getRentCounter() > 0) {
-            System.out.println("Cannot remove a rented movie.");
+            System.out.println("Cannot remove rented movie.");
             return;
         }
 
@@ -175,7 +175,7 @@ public class RentalSystem {
     public void printMovies() {
         boolean isRentedEmpty = true;
         boolean isUnrentedEmpty = true;
-        System.out.println("Rented movies:");
+        System.out.println("Rented Movies: ");
         for (int i = 0; i < movieIndex; i++) {
             if (this.movieList[i].getRentCounter() > 0) {
                 movieList[i].showMovie();
@@ -185,7 +185,7 @@ public class RentalSystem {
         if (isRentedEmpty) {
             System.out.println("No Rented movies.");
         }
-        System.out.println("Unrented movies:");
+        System.out.println("Unrented Movies: ");
         for (int i = 0; i < movieIndex; i++) {
             if (this.movieList[i].getRentCounter() == 0) {
                 movieList[i].showMovie();
@@ -215,7 +215,7 @@ public class RentalSystem {
             }
         }
         if (directorToRent == null) {// No director with given name.
-            System.out.println("No Such movie exists");
+            System.out.println("No such movie exists");
             return;
         }
 
@@ -228,7 +228,7 @@ public class RentalSystem {
             }
         }
         if (!movieExists) {
-            System.out.println("No Such movie exists");
+            System.out.println("No such movie exists");
             return;
         }
 
@@ -285,7 +285,7 @@ public class RentalSystem {
             }
         }
         if (targetCustomerIndex == -1) {// No customer with given ID found.
-            System.out.println("Customer cannot return the movie.");
+            System.out.println("Customer not found.");
             return;
         }
 
@@ -299,6 +299,11 @@ public class RentalSystem {
 
         targetCustomer.returnMovie(targetMovie);
 
-    }
+        if (targetCustomer.getRentedMoviesNumber() == 0) {
+            activeCustomers[targetCustomerIndex] = activeCustomers[customerIndex - 1];
+            activeCustomers[customerIndex - 1] = null;
+            customerIndex--;
+        }
 
+    }
 }

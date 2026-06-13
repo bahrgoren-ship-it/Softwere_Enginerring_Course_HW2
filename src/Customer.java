@@ -45,7 +45,7 @@ public class Customer {
     }
 
     /**
-     * Rents a movie - add it to rented movies list.
+     * Rents a movie.
      *
      * @param movieToRent the movie to rent
      * @return true if added successfully and false if not
@@ -58,7 +58,7 @@ public class Customer {
         }
         for (int i = 0; i < rentedMoviesNumber; i++) {
             if (rentedMovies[i].equals(movieToRent)) {
-                System.out.println("Customer already has this movie.");
+                System.out.println("Customer already has this movie");
                 return false;
             }
         }
@@ -84,7 +84,7 @@ public class Customer {
     }
 
     /**
-     * Returns a movie - delete it from rented movies list.
+     * Returns a movie and adjusts rented movies list.
      * Adjust movie indexes.
      *
      * @param movieToReturn the movie to return
@@ -119,6 +119,15 @@ public class Customer {
      */
     public String getId() {
         return this.id;
+    }
+
+    /**
+     * Gets the customer's rented movie number.
+     *
+     * @return the customer's rented movie number
+     */
+    public int getRentedMoviesNumber(){
+        return rentedMoviesNumber;
     }
 
     /**
